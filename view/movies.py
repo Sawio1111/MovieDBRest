@@ -5,13 +5,12 @@ import schema
 
 from utils import details_not_exist
 
-router = APIRouter()
 
+router = APIRouter()
 
 @router.get("/", response_model=List[schema.Movie])
 def get():
     return list(models.Movie.select())
-
 
 @router.get("/{movie_id}", response_model=schema.Movie)
 def get_movie(movie_id: int):
@@ -21,12 +20,10 @@ def get_movie(movie_id: int):
         raise HTTPException(status_code=404, detail=details_not_exist("Movie", movie_id))
     return movie
 
-
 @router.post("/", response_model=schema.Movie)
 def add_movie(movie: schema.MovieCreate):
     new_actor = models.Movie.create(**movie.model_dump())
     return new_actor
-
 
 @router.delete("/{movie_id}", response_model=schema.Movie)
 def delete_movie(movie_id: int):
@@ -36,7 +33,6 @@ def delete_movie(movie_id: int):
         return movie
     except models.Movie.DoesNotExist:
         raise HTTPException(status_code=404, detail=details_not_exist("Movie", movie_id))
-    
     
 @router.post("/{movie_id}/actors", response_model=schema.Movie)
 def assign_actor_to_movie(movie_id: int, actor_id: int):

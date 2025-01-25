@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 from view.actors import router as actors_router
 from view.movies import router as movies_router
 
