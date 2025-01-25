@@ -34,5 +34,5 @@ def delete_actor(actor_id: int):
         actor.delete_instance()
         return actor
     except models.Actor.DoesNotExist:
-        raise HTTPException(status_code=404, detail=details_not_exist("Actor", id))
+        raise HTTPException(status_code=404, detail=details_not_exist("Actor", actor_id))
 
