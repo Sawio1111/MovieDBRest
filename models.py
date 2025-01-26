@@ -1,6 +1,7 @@
 from peewee import *
 
 from database import db
+from database_vec import db_vector
 
 class BaseModel(Model):
     class Meta:
@@ -42,5 +43,11 @@ movie2.actors.add([actor2])
 movie3.actors.add([actor3, actor1])
 movie4.actors.add([actor4])         
 movie5.actors.add([actor5, actor2]) 
+
+movies = Movie.select()
+points = []
+
+for movie in movies:
+    db_vector.upsert_movie(movie)
 
 db.close()
