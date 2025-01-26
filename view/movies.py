@@ -22,8 +22,8 @@ def get_movie(movie_id: int):
 
 @router.post("/", response_model=schema.Movie)
 def add_movie(movie: schema.MovieCreate):
-    new_actor = models.Movie.create(**movie.model_dump())
-    return new_actor
+    new_movie = models.Movie.create(**movie.model_dump())
+    return new_movie
 
 @router.delete("/{movie_id}", response_model=schema.Movie)
 def delete_movie(movie_id: int):
@@ -34,7 +34,7 @@ def delete_movie(movie_id: int):
     except models.Movie.DoesNotExist:
         raise HTTPException(status_code=404, detail=details_not_exist("Movie", movie_id))
     
-@router.post("/{movie_id}/actors", response_model=schema.Movie)
+@router.post("/{movie_id}/actors/{actor_id}", response_model=schema.Movie)
 def assign_actor_to_movie(movie_id: int, actor_id: int):
     try:
         movie = models.Movie.get(models.Movie.id == movie_id)

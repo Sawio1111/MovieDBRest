@@ -14,7 +14,7 @@ class PeeweeGetterDict(GetterDict):
 class MovieCreate(BaseModel):
     title: str
     year: int
-    director: str
+    director: Union[str, None] = None
     description: Union[str, None] = None
 
 class MovieBase(MovieCreate):
